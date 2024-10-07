@@ -1,0 +1,25 @@
+<section>
+    @if (isLoggedIn){
+        <p>Welcome, {{username}}</p>
+        <img (click)="greet()" alt="user avatar" src="https://github.com/{{username}}.png" />
+    } @else{
+        <p>Log in!</p>
+        <button (click)="isLoggedIn = true">Log In</button>
+    }
+
+    <app-games
+    (addFavoriteEvent)="getFavoriteGame($event)" 
+    username="{{username}}" />
+
+    @if (favGame != ''){
+        <p>Your favorite game is {{favGame}}</p>
+    }
+    
+    @defer (on viewport){
+        <app-comments />
+    } @placeholder {
+        <p>Comments</p>
+    } @loading {
+        <p>Loading...</p>
+    }
+</section>
